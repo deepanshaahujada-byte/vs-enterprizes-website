@@ -47,6 +47,31 @@
     ready();
   }
 
+  /* ---------- hero caption typewriter ---------------------------------------
+     The lede carries the real copy in a visually-hidden span (so screen readers
+     get it whole, instantly); a sibling span is typed into for sighted users.
+     Starts once the line has finished fading into place (--i:2 => 240ms delay +
+     800ms transition, see .hero-copy > * above). */
+
+  var ledeVisual = document.querySelector(".hero-copy .lede-type");
+  if (ledeVisual) {
+    var ledeText = ledeVisual.previousElementSibling.textContent.trim();
+    if (reduceMotion) {
+      ledeVisual.textContent = ledeText;
+    } else {
+      window.setTimeout(function () {
+        ledeVisual.classList.add("typing");
+        var i = 0;
+        var perChar = Math.max(12, Math.min(45, 2000 / ledeText.length));
+        (function type() {
+          ledeVisual.textContent = ledeText.slice(0, ++i);
+          if (i < ledeText.length) window.setTimeout(type, perChar);
+          else ledeVisual.classList.remove("typing");
+        })();
+      }, 1040);
+    }
+  }
+
   /* ---------- nav ----------------------------------------------------------
      Background appears once the page scrolls past a top sentinel
      (IntersectionObserver, not a scroll listener). */

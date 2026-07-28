@@ -487,6 +487,13 @@ section { padding-block: clamp(72px, 9vw, 128px); }
 
 .hero-copy .lede { margin-top: 24px; }
 
+.lede-type.typing::after {
+  content: "\258C";
+  color: var(--gold);
+  margin-left: 2px;
+  animation: caret-blink 0.7s steps(1) infinite;
+}
+
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px; }
 
 /* load-in choreography (plays after loader) */
