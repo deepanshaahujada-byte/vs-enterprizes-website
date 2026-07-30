@@ -162,6 +162,21 @@
     });
   }
 
+  /* ---------- years since incorporation (2022-01-01) -----------------------
+     Ceil, not floor: "under N years" stays true indefinitely instead of
+     going stale the way a hardcoded string does. Feeds both stat tiles
+     (via data-count, read by the counter block below) and inline prose. */
+
+  var INCORPORATED = new Date(2022, 0, 1);
+  var yearsActive = Math.ceil((new Date() - INCORPORATED) / (365.25 * 24 * 3600 * 1000));
+
+  document.querySelectorAll("[data-years-count]").forEach(function (el) {
+    el.setAttribute("data-count", yearsActive);
+  });
+  document.querySelectorAll("[data-years-inline]").forEach(function (el) {
+    el.textContent = yearsActive;
+  });
+
   /* ---------- scroll reveals ---------------------------------------------- */
 
   var revealables = document.querySelectorAll("[data-reveal]");

@@ -928,6 +928,54 @@ a.feature-banner:hover .media-cover img { transform: scale(1.04); }
 
 /* ---------- pull quote ----------------------------------------------------- */
 
+/* ---------- registrations table (compliance) -------------------------------- */
+
+.reg-table { border-top: 1px solid var(--line); }
+
+.reg-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.7fr;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.reg-row.head {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+  padding-bottom: 12px;
+}
+
+.reg-name { font-weight: 700; }
+.reg-body, .reg-enables { color: var(--muted); font-size: 0.92rem; }
+
+@media (max-width: 720px) {
+  .reg-row { grid-template-columns: 1fr; gap: 4px; padding: 18px 4px; }
+  .reg-row.head { display: none; }
+  .reg-name { font-size: 1.02rem; color: var(--gold-bright); }
+  .reg-body { font-size: 0.82rem; }
+}
+
+.track-meta { color: var(--gold-bright); font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; }
+
+.dash-list { list-style: none; display: grid; gap: 12px; margin-top: 16px; }
+
+.dash-list li { position: relative; padding-left: 24px; color: var(--muted); }
+
+.dash-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 12px;
+  height: 2px;
+  background: var(--gold);
+}
+
 .pull {
   border-left: 3px solid var(--gold);
   padding: 8px 0 8px 28px;
@@ -1426,6 +1474,10 @@ footer {
 
 .vsb.open .vsb-panel { opacity: 1; transform: none; }
 
+/* while the panel is open the FAB is redundant with the panel's own close
+   button, and hiding it avoids visual clutter behind a mobile full-height panel */
+.vsb.open .vsb-fab { display: none; }
+
 /* [hidden] and .vsb-panel{display:flex} have equal specificity, so without
    this the flex rule wins the cascade and the "closed" panel still lays out
    at full size/position, invisibly intercepting clicks over whatever sits
@@ -1575,7 +1627,16 @@ footer {
 .vsb-input button:active { transform: scale(0.94); }
 
 @media (max-width: 640px) {
-  .vsb-panel { right: 12px; bottom: 156px; }
+  /* full-height sheet instead of a small floating card: the FAB stack it
+     would otherwise have to clear gets hidden while the panel is open
+     (see .vsb.open .vsb-fab), so there's nothing left to reserve room for */
+  .vsb-panel {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    height: min(75dvh, calc(100dvh - 24px - var(--nav-h)));
+  }
   .vsb-fab { bottom: 90px; }
   .wa-float { bottom: 20px; }
   .notice { right: 12px; bottom: 152px; }
