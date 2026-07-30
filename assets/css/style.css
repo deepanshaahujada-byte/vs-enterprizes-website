@@ -1426,7 +1426,14 @@ footer {
 
 .vsb.open .vsb-panel { opacity: 1; transform: none; }
 
+/* [hidden] and .vsb-panel{display:flex} have equal specificity, so without
+   this the flex rule wins the cascade and the "closed" panel still lays out
+   at full size/position, invisibly intercepting clicks over whatever sits
+   beneath it (e.g. the hiring-notice close button). */
+.vsb-panel[hidden] { display: none; }
+
 .vsb-head {
+  flex-shrink: 0;
   display: flex;
   align-items: baseline;
   gap: 10px;
@@ -1455,6 +1462,7 @@ footer {
 
 .vsb-log {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 18px;
   display: flex;
@@ -1511,9 +1519,11 @@ footer {
 
 @keyframes vsb-dot { 40% { transform: translateY(-4px); opacity: 1; } }
 
-.vsb-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 18px 12px; }
+.vsb-chips { flex-shrink: 0; display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding: 0 18px 8px; }
 
 .vsb-chips button {
+  flex-shrink: 0;
+  white-space: nowrap;
   border: 1px solid var(--line-strong);
   background: none;
   color: var(--muted);
@@ -1529,9 +1539,10 @@ footer {
 .vsb-chips button:hover { border-color: var(--gold); color: var(--text); }
 
 .vsb-input {
+  flex-shrink: 0;
   display: flex;
   gap: 10px;
-  padding: 14px;
+  padding: 10px 14px;
   border-top: 1px solid var(--line);
   background: var(--surface);
 }
@@ -1567,11 +1578,11 @@ footer {
   .vsb-panel { right: 12px; bottom: 156px; }
   .vsb-fab { bottom: 90px; }
   .wa-float { bottom: 20px; }
-  .notice { right: 12px; bottom: 210px; }
+  .notice { right: 12px; bottom: 152px; }
 }
 
 @media (max-width: 480px) {
-  .notice { right: 12px; bottom: 210px; width: calc(100vw - 24px); }
+  .notice { width: calc(100vw - 24px); }
 }
 
 /* ---------- pictograms (blueprint line-icon system) ------------------------

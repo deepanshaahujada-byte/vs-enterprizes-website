@@ -7,51 +7,52 @@
   "use strict";
 
   var EMAIL = "info@vsenterprizes.com";
-  var WA = "https://wa.me/919919039916";
-  var PHONE = "+91 99190 39916";
+  var TEL = "+919217305535";
+  var WA = "https://wa.me/919217305535";
+  var PHONE = "+91 92173 05535";
 
   /* ---------- knowledge base ------------------------------------------- */
 
   var INTENTS = [
     {
-      keys: ["service", "offer", "what do you do", "help", "consult", "dispute", "advice", "strategy"],
-      reply: "We provide strategic procurement advice, tender preparation and review, project monitoring, and dispute resolution during projects. The full picture is on our <a href='services.html'>Services page</a>."
+      keys: ["service", "offer", "what do you do", "subcontractor", "partner", "supplier", "vendor"],
+      reply: "We're a principal EPC contractor: we bid for and execute our own institutional work orders, tender to handover, with no advisory layer. We also partner with construction and solar subcontractors on active sites. See <a href='services.html'>Work with us</a>."
     },
     {
-      keys: ["tender", "bid", "procurement", "gem", "cppp", "gfr", "compliance", "msme", "government"],
-      reply: "We work inside India's public-procurement framework daily: GeM, CPPP, GFR 2017 and EPC contracting. Our mentors bring 20+ years of experience across 1000+ tender applications. See <a href='compliance.html'>Compliance</a> and <a href='services.html'>Services</a>."
+      keys: ["tender", "bid", "procurement", "gem", "cppp", "gfr", "compliance", "msme", "registration", "udyam", "pwd", "ireps"],
+      reply: "We operate under GeM, CPPP and GFR 2017, and hold Udyam/MSME (women-owned), PWD contractor and IREPS vendor registrations. See <a href='compliance.html'>Compliance</a>."
     },
     {
-      keys: ["solar", "renewable", "energy", "water heater", "bis", "mnre", "green"],
-      reply: "We sell and install BIS-approved FPC solar water heaters and MNRE-approved ETC systems for government agencies, and consult on commercial, technical and regulatory aspects of renewables. Details: <a href='sector-renewable.html'>Renewable Energy Consultancy</a>."
+      keys: ["solar", "renewable", "energy", "water heater", "bis", "mnre", "green", "swhs"],
+      reply: "144 solar water heating sites executed for the Border Security Force: BIS-approved and MNRE-approved systems, multi-brand, multi-location deployment. See <a href='sector-renewable.html'>Renewable Energy Infrastructure</a>."
     },
     {
-      keys: ["build", "construction", "road", "bridge", "highway", "infrastructure", "site", "works", "supervision", "mall"],
-      reply: "Our works consultancy covers buildings, shopping complexes, roads, highways and bridges, with on-site management, quality control, HSE and claim support from veteran retired government engineers. See <a href='sector-works.html'>Works Consultancy</a>."
+      keys: ["build", "construction", "infrastructure", "site", "works", "supervision", "barrack", "housing", "government"],
+      reply: "Institutional and civil infrastructure for defense and paramilitary campuses: barracks, housing, mess and administrative buildings, built end to end by our own on-site team. See <a href='sector-works.html'>Institutional &amp; Civil Infrastructure</a>."
     },
     {
-      keys: ["security", "surveillance", "bdds", "drone", "equipment", "goods"],
-      reply: "Under goods &amp; services we cover security and surveillance systems, BDDS equipment from leading OEMs, and basic drone pilot training. See <a href='sector-goods.html'>Goods &amp; Service Consultancy</a>."
+      keys: ["road", "bridge", "highway", "campus development", "utilities"],
+      reply: "RCC approach roads, internal campus development and utilities coordination, sequenced alongside the buildings they serve. See <a href='sector-campus-road.html'>Campus &amp; Road Infrastructure</a>."
     },
     {
       keys: ["career", "job", "hiring", "vacanc", "apply", "recruit", "position", "salary", "cv", "resume"],
-      reply: "We are hiring: Procurement &amp; Materials Manager (featured), Chief Project Engineer, Electrical Engineer, Billing Engineer, Accountant and Office Assistant. Roles and how to apply are on the <a href='careers.html'>Careers page</a>."
+      reply: "We are hiring: Procurement &amp; Materials Manager (featured), Chief Project Engineer, Electrical Engineer, Billing Engineer and Office Assistant. Roles and how to apply are on the <a href='careers.html'>Careers page</a>."
     },
     {
       keys: ["contact", "phone", "call", "email", "address", "office", "noida", "lucknow", "where", "location", "reach"],
-      reply: "Corporate office: Tower A-1519, Spectrum Metro Mall, Sector 75, Noida. Registered office: Sainik Nagar, Telibagh, Lucknow. Call <a href='tel:+919919039916'>+91 99190 39916</a> or email <a href='mailto:" + EMAIL + "'>" + EMAIL + "</a>. More on <a href='contact.html'>Contact us</a>."
+      reply: "Corporate office: 1519, Tower A, Spectrum Metro Mall, Sector 75, Noida. Registered office: Sainik Nagar, Telibagh, Lucknow. Call <a href='tel:" + TEL + "'>" + PHONE + "</a> or email <a href='mailto:" + EMAIL + "'>" + EMAIL + "</a>. More on <a href='contact.html'>Contact us</a>."
     },
     {
       keys: ["about", "who are you", "who is", "company", "vs enterprises", "team", "mission", "vision"],
-      reply: "VS Enterprises is a fast-growing EPC firm delivering civil and solar infrastructure projects across India, and an advisory partner for public procurement. Our story is on the <a href='about.html'>About page</a>."
+      reply: "VS Enterprises is a women-owned, MSME-registered EPC contractor delivering institutional, civil and renewable energy infrastructure across India, trusted by ITBP and BSF. Our story is on the <a href='about.html'>About page</a>."
     },
     {
       keys: ["hello", "hi ", "hey", "namaste", "good morning", "good evening"],
-      reply: "Hello! Ask me about our services, sectors, open jobs, compliance, or how to reach us."
+      reply: "Hello! Ask me about our sectors, open jobs, compliance, or how to reach us."
     },
     {
       keys: ["thank", "great", "ok", "nice"],
-      reply: "Happy to help. Anything else about our services, sectors or careers?"
+      reply: "Happy to help. Anything else about our sectors or careers?"
     }
   ];
 
@@ -60,7 +61,7 @@
     "<span class='vsb-actions'>" +
     "<a class='vsb-chip-link' data-mailto='1' href='#'>Email this question</a>" +
     "<a class='vsb-chip-link' href='" + WA + "' target='_blank' rel='noopener'>WhatsApp us</a>" +
-    "<a class='vsb-chip-link' href='tel:+919919039916'>Call " + PHONE + "</a>" +
+    "<a class='vsb-chip-link' href='tel:" + TEL + "'>Call " + PHONE + "</a>" +
     "</span>";
 
   var SUGGESTIONS = ["What do you do?", "Are you hiring?", "Solar products", "How do I contact you?"];
@@ -140,6 +141,11 @@
     chips.innerHTML = "";
   }
 
+  // auto-focus pops the on-screen keyboard on touch devices, shrinking the
+  // already-tight panel further, so only do it where a precise pointer
+  // (mouse/trackpad) suggests there is no virtual keyboard to worry about
+  var canAutoFocus = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
   function openPanel(open) {
     panel.hidden = !open;
     fab.setAttribute("aria-expanded", open ? "true" : "false");
@@ -148,7 +154,7 @@
       botSay("Hi, I am VS Assist. I answer from this site's content. What would you like to know?");
       renderChips();
     }
-    if (open) input.focus();
+    if (open && canAutoFocus) input.focus();
   }
 
   fab.addEventListener("click", function () { openPanel(panel.hidden); });
