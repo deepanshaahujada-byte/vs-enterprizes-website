@@ -466,12 +466,28 @@ section { padding-block: clamp(72px, 9vw, 128px); }
   overflow: clip;
 }
 
-#shader {
+#shader,
+#hero-building {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: -2;
+  display: block;
+}
+
+/* hero copy stacks full-width above the fold on narrow viewports, so the
+   building scene is confined to the empty space below it instead of
+   trying to sit "beside" text that no longer has a side */
+@media (max-width: 860px) {
+  #hero-building {
+    inset: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 46%;
+    height: 54%;
+  }
 }
 
 .hero-scrim {
