@@ -15,14 +15,6 @@
   <link rel="preload" href="assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
   <script>document.documentElement.classList.add("js");</script>
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
-      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"
-    }
-  }
-  </script>
 </head>
 <body>
 
@@ -65,18 +57,21 @@
   <main>
 
     <section class="hero">
-      <canvas id="hero-building" aria-hidden="true"></canvas>
-      <div class="hero-scrim" aria-hidden="true"></div>
-      <div class="wrap hero-copy">
-        <span class="eyebrow" style="--i:0">Women-owned MSME &middot; EPC contractor</span>
-        <h1 class="display" style="--i:1">Building the Nation.<br>Powering the <span class="accent">Future</span>.</h1>
-        <p class="lede" style="--i:2">
-          <span class="sr-only">Institutional and civil infrastructure, campus and road works, and renewable energy EPC, delivered end to end for India's public-sector and defense organisations.</span>
-          <span class="lede-type" aria-hidden="true"></span>
-        </p>
-        <div class="hero-cta" style="--i:3">
-          <a class="btn btn-gold" href="sectors.html">Explore our sectors <span class="arrow">&rarr;</span></a>
-          <a class="btn btn-ghost" href="services.html">How we work</a>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow" style="--i:0">Women-owned MSME &middot; EPC contractor</span>
+          <h1 class="display" style="--i:1">Building the Nation.<br>Powering the <span class="accent">Future</span>.</h1>
+          <p class="lede" style="--i:2">
+            <span class="sr-only">Institutional and civil infrastructure, campus and road works, and renewable energy EPC, delivered end to end for India's public-sector and defense organisations.</span>
+            <span class="lede-type" aria-hidden="true"></span>
+          </p>
+          <div class="hero-cta" style="--i:3">
+            <a class="btn btn-gold" href="sectors.html">Explore our sectors <span class="arrow">&rarr;</span></a>
+            <a class="btn btn-ghost" href="services.html">How we work</a>
+          </div>
+        </div>
+        <div class="hero-media" data-reveal style="--d:2">
+          <img src="assets/img/white-building.jpg" alt="Modern institutional building with angular architecture" data-parallax="14">
         </div>
       </div>
     </section>
@@ -200,6 +195,23 @@
 
     <section style="padding-top:0">
       <div class="wrap">
+        <div class="section-head" data-reveal style="margin-bottom:28px">
+          <h2>On the ground</h2>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="filmstrip" data-reveal tabindex="0" role="region" aria-label="Site and execution imagery, scroll horizontally">
+          <div class="filmstrip-item"><img src="assets/img/crane-sunset.jpg" alt="Construction crew working amid rebar and steel at dusk" loading="lazy"><span>On-site supervision</span></div>
+          <div class="filmstrip-item"><img src="assets/img/contract.jpg" alt="Signing a contract document" loading="lazy"><span>Tender to handover</span></div>
+          <div class="filmstrip-item"><img src="assets/img/blueprints.jpg" alt="Engineer drafting on a technical drawing" loading="lazy"><span>Engineered before it's built</span></div>
+          <div class="filmstrip-item"><img src="assets/img/glass-tower.jpg" alt="Glass office towers seen from below" loading="lazy"><span>Curtain-wall facades</span></div>
+          <div class="filmstrip-item"><img src="assets/img/city-skyline.jpg" alt="Aerial view of a dense city skyline at dusk" loading="lazy"><span>Multi-city execution</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap">
         <div class="vm">
           <div class="vm-panel gold" data-reveal>
             <h2>Institutional experience</h2>
@@ -283,23 +295,23 @@
         <div class="foot-col">
           <h4>Offices</h4>
           <ul>
-            <li><span class="foot-office">Corporate Office</span>1519, Tower A, Spectrum Metro Mall, Phase 1, Sector 75, Noida, Uttar Pradesh - 201301</li>
-            <li><span class="foot-office">Registered Office</span>Plot no. 150, Lane no. 9, Sainik Nagar, Telibagh, Lucknow, Uttar Pradesh - 226025</li>
+            <li><span class="foot-office"><svg class="picto" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle pathLength="1" cx="12" cy="9" r="2.5"/></svg>Corporate Office</span>1519, Tower A, Spectrum Metro Mall, Phase 1, Sector 75, Noida, Uttar Pradesh - 201301</li>
+            <li><span class="foot-office"><svg class="picto" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle pathLength="1" cx="12" cy="9" r="2.5"/></svg>Registered Office</span>Plot no. 150, Lane no. 9, Sainik Nagar, Telibagh, Lucknow, Uttar Pradesh - 226025</li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Reach us</h4>
           <ul>
-            <li><a href="tel:+919217305535">+91 92173 05535</a></li>
-            <li><a href="tel:+918368071688">+91 83680 71688</a></li>
-            <li><a href="mailto:info@vsenterprizes.com">info@vsenterprizes.com</a></li>
-            <li><a href="https://wa.me/919217305535" target="_blank" rel="noopener">WhatsApp us</a></li>
+            <li><a href="tel:+919217305535"><svg class="picto" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><rect pathLength="1" x="7" y="2" width="10" height="20" rx="2"/><line pathLength="1" x1="10" y1="18" x2="14" y2="18"/></svg>+91 92173 05535</a></li>
+            <li><a href="tel:+918368071688"><svg class="picto" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><rect pathLength="1" x="7" y="2" width="10" height="20" rx="2"/><line pathLength="1" x1="10" y1="18" x2="14" y2="18"/></svg>+91 83680 71688</a></li>
+            <li><a href="mailto:info@vsenterprizes.com"><svg class="picto" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><rect pathLength="1" x="2" y="5" width="20" height="14" rx="2"/><path pathLength="1" d="M3 6l9 7 9-7"/></svg>info@vsenterprizes.com</a></li>
+            <li><a href="https://wa.me/919217305535" target="_blank" rel="noopener"><svg class="picto" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L4 20l1.1-4.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>WhatsApp us</a></li>
           </ul>
         </div>
       </div>
       <div class="foot-bottom">
         <span>&copy; <span id="year"></span> VS Enterprises. All rights reserved.</span>
-        <span>Advise powered through Action</span>
+        <span>Build. Power. Deliver.</span>
       </div>
     </div>
   </footer>
@@ -317,6 +329,5 @@
 
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/chatbot.js" defer></script>
-  <script src="assets/js/hero-building.js" type="module"></script>
 </body>
 </html>

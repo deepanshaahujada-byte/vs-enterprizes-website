@@ -466,37 +466,32 @@ section { padding-block: clamp(72px, 9vw, 128px); }
   overflow: clip;
 }
 
-#shader,
-#hero-building {
-  position: absolute;
-  inset: 0;
+.hero-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.hero-media {
+  position: relative;
+  border-radius: var(--r-box);
+  overflow: clip;
+  border: 1px solid var(--line);
+  aspect-ratio: 4 / 5;
+}
+
+.hero-media img {
   width: 100%;
   height: 100%;
-  z-index: -2;
-  display: block;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(0.7);
 }
 
-/* hero copy stacks full-width above the fold on narrow viewports, so the
-   building scene is confined to the empty space below it instead of
-   trying to sit "beside" text that no longer has a side */
-@media (max-width: 860px) {
-  #hero-building {
-    inset: auto;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 46%;
-    height: 54%;
-  }
-}
-
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(90deg, rgba(18, 19, 22, 0.92) 0%, rgba(18, 19, 22, 0.55) 55%, rgba(18, 19, 22, 0.25) 100%),
-    linear-gradient(0deg, var(--bg) 0%, transparent 26%);
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-media { aspect-ratio: 16 / 10; order: -1; }
 }
 
 .hero-copy { max-width: 720px; min-width: 0; }
@@ -595,6 +590,9 @@ body.ready .page-hero .media img { animation: media-drift 1.6s var(--ease) both;
 
 .stat span { display: block; margin-top: 10px; color: var(--muted); font-size: 0.92rem; }
 
+.stats.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 860px) { .stats.cols-4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
 
 /* ---------- bento grid ---------------------------------------------------- */
@@ -803,7 +801,7 @@ body.ready .page-hero .media img { animation: media-drift 1.6s var(--ease) both;
   transition: transform 0.7s var(--ease), filter 0.7s ease;
 }
 
-.split-media:hover img { transform: scale(1.04); filter: grayscale(0.4) contrast(1.03) brightness(0.85); }
+.split-media:hover img { transform: scale(1.04) translateY(calc(var(--py, 0) * 1px)); filter: grayscale(0.4) contrast(1.03) brightness(0.85); }
 
 .split-copy p + p { margin-top: 16px; }
 .split-copy h2 { margin-bottom: 20px; }
@@ -1032,7 +1030,9 @@ footer {
 }
 
 .foot-office {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1041,7 +1041,11 @@ footer {
   margin-bottom: 4px;
 }
 
+.foot-office .picto { width: 14px; height: 14px; }
+
 .foot-col li { line-height: 1.6; }
+
+.foot-col a { display: inline-flex; align-items: center; gap: 10px; }
 
 .logo-chip {
   background: #fff;
@@ -1052,6 +1056,17 @@ footer {
 }
 
 .logo-chip img { height: 42px; width: auto; }
+
+.icon-chip {
+  width: fit-content;
+  padding: 12px;
+  border-radius: var(--r-ui);
+  background: rgba(217, 167, 51, 0.1);
+  border: 1px solid rgba(217, 167, 51, 0.25);
+  margin-bottom: 18px;
+}
+
+.icon-chip .picto { color: var(--gold); width: 24px; height: 24px; }
 
 .foot-brand img.lockup { height: 86px; width: auto; margin-bottom: 18px; }
 
@@ -1137,8 +1152,8 @@ footer {
 
 .notice {
   position: fixed;
-  left: 22px;
-  bottom: 22px;
+  right: 22px;
+  bottom: 160px;
   z-index: 56;
   width: min(360px, calc(100vw - 44px));
   background: var(--surface-2);
@@ -1253,6 +1268,9 @@ footer {
 .role-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 
 .role-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   padding: 6px 14px;
@@ -1260,6 +1278,10 @@ footer {
   font-weight: 600;
   color: var(--muted);
 }
+
+.role-meta span .picto { width: 15px; height: 15px; color: var(--gold); }
+
+.office h2 { display: inline-flex; align-items: center; gap: 10px; }
 
 .jd details {
   border: 1px solid var(--line);
@@ -1545,12 +1567,121 @@ footer {
   .vsb-panel { right: 12px; bottom: 156px; }
   .vsb-fab { bottom: 90px; }
   .wa-float { bottom: 20px; }
+  .notice { right: 12px; bottom: 210px; }
 }
 
-/* keep the notice clear of the right-side floating buttons on narrow screens */
 @media (max-width: 480px) {
-  .notice { left: 12px; bottom: 16px; width: calc(100vw - 104px); }
+  .notice { right: 12px; bottom: 210px; width: calc(100vw - 24px); }
 }
+
+/* ---------- pictograms (blueprint line-icon system) ------------------------
+   Same drafting-line language as the loader skyline: straight strokes,
+   pathLength="1" per shape so stroke-dashoffset draw-in works uniformly. */
+
+.picto {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+[data-reveal] .picto-draw * {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s var(--ease);
+  transition-delay: calc(var(--d, 0) * 90ms + 0.2s);
+}
+
+[data-reveal].in-view .picto-draw * { stroke-dashoffset: 0; }
+
+.icon-line { display: inline-flex; align-items: center; gap: 10px; }
+.icon-line .picto { color: var(--gold); width: 18px; height: 18px; }
+
+/* ---------- scroll parallax -------------------------------------------------
+   JS sets --py (px) on the element; kept on a bleed layer separate from any
+   img that already carries its own load-in transform (e.g. media-drift),
+   so the two transforms never fight over the same box. */
+
+[data-parallax] {
+  transform: translateY(calc(var(--py, 0) * 1px));
+  will-change: transform;
+}
+
+.page-hero .media { inset: -8% 0; }
+
+/* ---------- horizontal filmstrip (native scroll-snap, no JS required) ----- */
+
+.filmstrip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: 4px 10px;
+  scrollbar-width: none;
+}
+
+.filmstrip::-webkit-scrollbar { display: none; }
+
+.filmstrip-item {
+  position: relative;
+  scroll-snap-align: start;
+  flex: 0 0 clamp(240px, 34vw, 380px);
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-box);
+  overflow: clip;
+  border: 1px solid var(--line);
+  isolation: isolate;
+}
+
+.filmstrip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05) brightness(0.62);
+  transition: transform 0.6s var(--ease), filter 0.6s ease;
+}
+
+.filmstrip-item:hover img { transform: scale(1.05); filter: grayscale(0.3) contrast(1.03) brightness(0.8); }
+
+.filmstrip-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(10, 11, 13, 0.8) 0%, transparent 55%);
+}
+
+.filmstrip-item span {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ---------- cta-band cursor spotlight --------------------------------------- */
+
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(217, 167, 51, 0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.cta-band:hover::before { opacity: 1; }
+
+.cta-band > * { position: relative; z-index: 1; }
 
 /* ---------- scroll reveals ------------------------------------------------- */
 

@@ -47,29 +47,71 @@
     ready();
   }
 
-  /* ---------- hero caption typewriter ---------------------------------------
-     The lede carries the real copy in a visually-hidden span (so screen readers
-     get it whole, instantly); a sibling span is typed into for sighted users.
-     Starts once the line has finished fading into place (--i:2 => 240ms delay +
-     800ms transition, see .hero-copy > * above). */
+  /* ---------- typewriter (reusable) ------------------------------------------
+     Each target carries the real copy in a visually-hidden sibling span (so
+     screen readers get it whole, instantly); the target itself is typed into
+     for sighted users. */
 
-  var ledeVisual = document.querySelector(".hero-copy .lede-type");
-  if (ledeVisual) {
-    var ledeText = ledeVisual.previousElementSibling.textContent.trim();
-    if (reduceMotion) {
-      ledeVisual.textContent = ledeText;
-    } else {
-      window.setTimeout(function () {
-        ledeVisual.classList.add("typing");
-        var i = 0;
-        var perChar = Math.max(12, Math.min(45, 2000 / ledeText.length));
-        (function type() {
-          ledeVisual.textContent = ledeText.slice(0, ++i);
-          if (i < ledeText.length) window.setTimeout(type, perChar);
-          else ledeVisual.classList.remove("typing");
-        })();
-      }, 1040);
+  function typeInto(el, delay) {
+    var text = el.previousElementSibling.textContent.trim();
+    if (reduceMotion || forceStatic) { el.textContent = text; return; }
+    window.setTimeout(function () {
+      el.classList.add("typing");
+      var i = 0;
+      var perChar = Math.max(12, Math.min(45, 2000 / text.length));
+      (function type() {
+        el.textContent = text.slice(0, ++i);
+        if (i < text.length) window.setTimeout(type, perChar);
+        else el.classList.remove("typing");
+      })();
+    }, delay);
+  }
+
+  // home hero: starts once the line has finished fading into place
+  // (--i:2 => 240ms delay + 800ms transition, see .hero-copy > * above)
+  var heroLede = document.querySelector(".hero-copy .lede-type");
+  if (heroLede) typeInto(heroLede, 1040);
+
+  // interior page heroes: no fade choreography to wait for, just a short beat
+  document.querySelectorAll(".page-hero .lede-type").forEach(function (el) {
+    typeInto(el, 480);
+  });
+
+  /* ---------- scroll parallax ------------------------------------------------
+     [data-parallax="24"] drifts within +/-24px as its section crosses the
+     viewport. rAF-throttled, single shared listener. */
+
+  var parallaxEls = document.querySelectorAll("[data-parallax]");
+  if (parallaxEls.length && !reduceMotion && !forceStatic) {
+    var pxTicking = false;
+    function updateParallax() {
+      var vh = window.innerHeight;
+      parallaxEls.forEach(function (el) {
+        var amt = parseFloat(el.getAttribute("data-parallax")) || 20;
+        var rect = el.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var progress = (center - vh / 2) / (vh / 2); // -1 (above) .. 1 (below)
+        var py = Math.max(-1, Math.min(1, progress)) * amt;
+        el.style.setProperty("--py", py.toFixed(1));
+      });
+      pxTicking = false;
     }
+    window.addEventListener("scroll", function () {
+      if (!pxTicking) { window.requestAnimationFrame(updateParallax); pxTicking = true; }
+    }, { passive: true });
+    updateParallax();
+  }
+
+  /* ---------- cta-band cursor spotlight --------------------------------------- */
+
+  if (!reduceMotion) {
+    document.querySelectorAll(".cta-band").forEach(function (band) {
+      band.addEventListener("mousemove", function (e) {
+        var rect = band.getBoundingClientRect();
+        band.style.setProperty("--mx", ((e.clientX - rect.left) / rect.width * 100) + "%");
+        band.style.setProperty("--my", ((e.clientY - rect.top) / rect.height * 100) + "%");
+      });
+    });
   }
 
   /* ---------- nav ----------------------------------------------------------
